@@ -52,14 +52,22 @@ body{margin:0;font-family:Inter,system-ui,Segoe UI,Arial;background:var(--bg);co
 }
 
 /* small interactive hover */
-.project-card:hover,.cert-card:hover{transform:translateY(-6px);box-shadow:0 12px 30px rgba(0,0,0,0.6)}
+.project-card,.cert-card{
+  --card-scale: 1;
+  transform: translateY(0) scale(var(--card-scale));
+}
+.project-card:hover,.cert-card:hover{transform:translateY(-8px) scale(var(--card-scale));box-shadow:0 12px 30px rgba(0,0,0,0.6)}
 
-/* Center-mode visuals */
+/* Center-mode visuals (use CSS var for composed scaling) */
 .carousel-track > *{transform-origin:center;transition:transform .36s cubic-bezier(.22,.9,.36,1),opacity .28s ease}
-.carousel-track > *.is-center{transform:scale(1.06);opacity:1}
-.carousel-track > *.is-left,.carousel-track > *.is-right{transform:scale(0.96);opacity:0.95}
-.carousel-track > *.is-side{transform:scale(0.87);opacity:0.7}
+.carousel-track > *.is-center{--card-scale:1.06;opacity:1}
+.carousel-track > *.is-left,.carousel-track > *.is-right{--card-scale:0.96;opacity:0.95}
+.carousel-track > *.is-side{--card-scale:0.87;opacity:0.7}
 
 /* ensure track has enough left padding so first item can center */
 .carousel{padding:18px 40px}
 .carousel-track{padding-left:0;padding-right:0}
+
+/* Reveal animations */
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .52s cubic-bezier(.2,.9,.2,1) var(--reveal-delay,0ms), transform .52s cubic-bezier(.2,.9,.2,1) var(--reveal-delay,0ms)}
+.reveal.in-view{opacity:1;transform:translateY(0)}
